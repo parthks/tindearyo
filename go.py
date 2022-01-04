@@ -23,9 +23,15 @@ print(SWIPE_COUNT, LIKED_COUNT)
 
 
 INTERESTS = ["Wine", "Craft Beer", "Grab a drink", "House Parties", "Dancing", "Festivals", "Travel", "Spirituality", "Movies"]
-KEYWORDS = ["wine", "go out", "party", "beer", "chill", "420", "dance", "dancing", "mango", "cheese", "travel", "explore", "software", "code", "coding", "geek", "ai", "singularity", "artificial intelligence", "edm", "psychedelic", "rave", "festival", "concert"]
+KEYWORDS = ["wine", "go out", "party", "beer", "chill", "420", "dance", "dancing", "mango", "cheese", "travel", "explore", "software", "code", "coding", "geek", "ai", "singularity", "artificial intelligence", "edm", "psychedelic", "rave", "festival", "concert", "cabin crew"]
 
 def chillz(data: Tinder.Person):
+    if (len(data.images) == 1):
+        return False
+    
+    if (len(data.bio) == 0):
+        return False
+
     if hasattr(data, 'interests'):
         for myInterest in INTERESTS:
             if (myInterest in data.interests):
@@ -77,9 +83,10 @@ if __name__ == "__main__":
     while True:
         try:
             potentials = api.nearby_persons()
+            print("Got", len(potentials))
         except Exception as e:
             print(e)
-            t = random.randint(300,600)
+            t = random.randint(60*30,60*60)
             print("Taking a break...", t)
             time.sleep(t)
             continue
